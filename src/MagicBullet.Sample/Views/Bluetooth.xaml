@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:MagicBullet.Sample.Forms.Views;assembly=MagicBullet.Sample.Forms"
+                       mc:Ignorable="d"
+                       Title="Fitbit"
+                       x:Class="MagicBullet.Sample.Forms.Views.Bluetooth">
+
+
+    <ContentPage.Resources>
+        <Style x:Key="DeviceNameLabelStyle" TargetType="Label">
+            <Setter Property="FontSize">
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="15.5" />
+                    <On Platform="Android" Value="15.5" />
+                </OnPlatform>
+            </Setter>
+            <Setter Property="TextColor" Value="Blue"/>
+        </Style>
+
+        <Style x:Key="DeviceUuidLabelStyle"  TargetType="Label">
+            <Setter Property="FontSize">
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="10.5" />
+                    <On Platform="Android" Value="10.5" />
+                </OnPlatform>
+            </Setter>
+            <Setter Property="TextColor" Value="Gray"/>
+        </Style>
+
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Devices, Mode=OneWay}"   
+                  CachingStrategy="RecycleElement"
+                  IsPullToRefreshEnabled="False">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="24,12,24,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="*"/>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" Style="{StaticResource DeviceNameLabelStyle}" />
+
+                            <Label Text="{Binding UuidDisplay}" Grid.Row="1" Style="{StaticResource DeviceUuidLabelStyle}" />
+
+                            <Label Text="{Binding Rssi, StringFormat='Rssi={0}'}" 
+                                   Style="{StaticResource DeviceUuidLabelStyle}"
+                                   Grid.Column="1" 
+                                   VerticalOptions="Center"  
+                                   HorizontalOptions="End" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</views:BaseContentPage>
